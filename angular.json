@@ -2,13 +2,142 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "",
-  "projects": {},
+  "projects": {
+    "dashbord": {
+      "root": "apps/dashbord/",
+      "sourceRoot": "apps/dashbord/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/dashbord",
+            "index": "apps/dashbord/src/index.html",
+            "main": "apps/dashbord/src/main.ts",
+            "polyfills": "apps/dashbord/src/polyfills.ts",
+            "tsConfig": "apps/dashbord/tsconfig.app.json",
+            "assets": [
+              "apps/dashbord/src/favicon.ico",
+              "apps/dashbord/src/assets"
+            ],
+            "styles": [
+              "apps/dashbord/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/dashbord/src/environments/environment.ts",
+                  "with": "apps/dashbord/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "dashbord:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "dashbord:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "dashbord:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/dashbord/src/test.ts",
+            "polyfills": "apps/dashbord/src/polyfills.ts",
+            "tsConfig": "apps/dashbord/tsconfig.spec.json",
+            "karmaConfig": "apps/dashbord/karma.conf.js",
+            "styles": [
+              "apps/dashbord/src/styles.scss"
+            ],
+            "scripts": [],
+            "assets": [
+              "apps/dashbord/src/favicon.ico",
+              "apps/dashbord/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/dashbord/tsconfig.app.json",
+              "apps/dashbord/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "dashbord-e2e": {
+      "root": "apps/dashbord-e2e/",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/dashbord-e2e/protractor.conf.js",
+            "devServerTarget": "dashbord:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "dashbord:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/dashbord-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "warnings": {
       "typescriptMismatch": false,
       "versionMismatch": false
     },
     "defaultCollection": "@nrwl/schematics"
-    
-  }
+  },
+  "schematics": {
+    "@nrwl/schematics:component": {
+      "styleext": "scss"
+    }
+  },
+  "defaultProject": "dashbord"
 }
